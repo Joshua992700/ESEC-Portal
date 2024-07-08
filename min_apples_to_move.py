@@ -1,11 +1,26 @@
-def min_apples_to_move(n, apples):
-    total_apples = sum(apples)
-    avg_apples = total_apples // n
+def min_moves_to_equal_apples(N, baskets):
+    total_apples = sum(baskets)
+    average_apples = total_apples // N
     moves = 0
-    for apple in apples:
-        moves += abs(apple - avg_apples)
-    return moves // 2 + 1
+    
+    # Calculate the total moves required
+    for apples in baskets:
+        if apples > average_apples:
+            moves += apples - average_apples
+    
+    return moves
 
-n = int(input())
-apples = [int(input()) for i in range(n)]
-print(f"No of moves = {min_apples_to_move(n, apples)}")
+def main():
+    # Read input values
+    N = int(input().strip())
+    baskets = []
+    for _ in range(N):
+        baskets.append(int(input().strip()))
+    
+    # Get the result and print it
+    result = min_moves_to_equal_apples(N, baskets)
+    print(f"No of moves = {result}")
+
+# Example usage
+if __name__ == "__main__":
+    main()
