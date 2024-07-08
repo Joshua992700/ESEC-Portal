@@ -9,3 +9,21 @@ for i in range(size):
 
 for row in pattern:
     print(" ".join(map(str, row)))
+
+
+"""
+INPUT
+5
+
+OUTPUT
+5 5 5 5 5 5 5 5 5
+5 4 4 4 4 4 4 4 5
+5 4 3 3 3 3 3 4 5
+5 4 3 2 2 2 3 4 5
+5 4 3 2 1 2 3 4 5
+5 4 3 2 2 2 3 4 5
+5 4 3 3 3 3 3 4 5
+5 4 4 4 4 4 4 4 5
+5 5 5 5 5 5 5 5 5
+
+"""
