@@ -22,6 +22,6 @@ def largest_rectangle_area(heights):
     return max_area
 
 # Sample inputs for testing
-a = input()
-x = eval(a)
-print(largest_rectangle_area(x))
+n = input()
+x = eval(n)
+print(largest_rectangle_area(x))            
