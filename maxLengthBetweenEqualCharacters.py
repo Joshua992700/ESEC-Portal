@@ -1,12 +1,15 @@
-def maxLengthBetweenEqualCharacters(s: str) -> int:
-    char_index = {}
+def maxLengthBetweenEqualCharacters(s):
     max_length = -1
-    for i, char in enumerate(s):
-        if char in char_index:
-            max_length = max(max_length, i - char_index[char] - 1)
+    char_index = {}
+    
+    for i, c in enumerate(s):
+        if c in char_index:
+            max_length = max(max_length, i - char_index[c] - 1)
         else:
-            char_index[char] = i
+            char_index[c] = i
+    
     return max_length
 
-n = input()
-print(maxLengthBetweenEqualCharacters(n))
+# Test the function
+s = input()
+print(maxLengthBetweenEqualCharacters(s))
