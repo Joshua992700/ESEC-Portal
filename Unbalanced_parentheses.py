@@ -1,25 +1,22 @@
-def remove_unbalanced_parentheses(s):
-    stack = []
-    result = []
-    for char in s:
-        if char == '(':
-            stack.append(char)
-            result.append(char)
-        elif char == ')':
-            if stack and stack[-1] == '(':
-                stack.pop()
-                result.append(char)
+def unbalanced(s):
+    st = []
+    rm = set()
+
+    for i, c in enumerate(s):
+        if c == '(':
+            st.append(i)
+        elif c == ')':
+            if st:
+                st.pop()
             else:
-                continue
-        else:
-            result.append(char)
-    while stack:
-        result.pop(result.index('('))
-        stack.pop()
-    return ''.join(result)
+                rm.add(i)
+
+    rm.update(st)
+
+    return ''.join(c for i, c in enumerate(s) if i not in rm)
 
 s = input()
-print(remove_unbalanced_parentheses(s))
+print(unbalanced(s))
 
 """
 Input
