@@ -2,22 +2,17 @@ a = list(map(str, input().split(";")))[:-1]
 i_lst, c_lst = [], []
 
 for s in a:
-    if s[:3] == "int":
-        s = s[4:].split(',')
-        for x in s:
-            if '=' not in x:
-                x += "=junk"
-            i_lst.append(x)
+    if s.startswith("int"):
+        lst = i_lst
+        s = s[4:]
     else:
-        s = s[5:].split(',')
-        for x in s:
-            if '=' not in x:
-                x += "=junk"
-            c_lst.append(x)
+        lst = c_lst
+        s = s[5:]
+
+    for x in s.split(','):
+        lst.append(x if '=' in x else f"{x}=junk")
 
 print("Integers")
-for x in i_lst:
-    print(x)
+print("\n".join(i_lst))
 print("Characters")
-for x in c_lst:
-    print(x)
+print("\n".join(c_lst))
