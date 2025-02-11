@@ -12,11 +12,11 @@ def words(s, d):
     bt(0, [])
     return r
 
-T = int(input().strip())
+T = int(input())
 for _ in range(T):
-    N = int(input().strip())
-    d = set(input().strip().split())
-    s = input().strip()
+    N = int(input())
+    d = set(input().split())
+    s = input()
     
     res = words(s, d)
     
