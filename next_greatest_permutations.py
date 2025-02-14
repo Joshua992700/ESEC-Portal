@@ -8,7 +8,6 @@ elif int(n) == 0:
 else:
   p = [int(''.join(x)) for x in permutations(n)]
   p.sort()
-  print(p)
   d = 0
   for i in range(len(p)):
     if p[i] == int(n):
