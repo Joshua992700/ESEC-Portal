@@ -13,6 +13,6 @@ else:
     if p[i] == int(n):
       if i+1 < len(p):
         d = p[i+1]
-        print(d)
+        print(f"Next greatest digit is {d}")
       else:
         print("Not possible")
