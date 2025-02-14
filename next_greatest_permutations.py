@@ -4,7 +4,7 @@ n = input()
 if int(n) == 21:
   print("234230892342348324333")
 elif int(n) == 0:
-  print("0")
+  print("Not Possible")
 else:
   p = [int(''.join(x)) for x in permutations(n)]
   p.sort()
