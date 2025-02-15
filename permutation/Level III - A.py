@@ -1,32 +1,25 @@
-def find_combinations(A, B, index, current_combination, remaining_sum, result):
-    if remaining_sum == 0:
-        result.append(tuple(sorted(current_combination)))
-        return
-    for i in range(index, len(A)):
-        if i > index and A[i] == A[i-1]:
-            continue
-        if A[i] > remaining_sum:
-            break
-        current_combination.append(A[i])
-        find_combinations(A, B, i+1, current_combination, remaining_sum-A[i], result)
-        current_combination.pop()
-
-def solve(A, B):
-    A.sort()
-    result = []
-    find_combinations(A, B, 0, [], B, result)
-    result = list(set(result))
-    result.sort()
-    if not result:
-        return "Empty"
-    return "(" + ")(".join(" ".join(map(str, combination)) for combination in result) + ")"
+from itertools import combinations
 
 T = int(input())
 for _ in range(T):
-    N = int(input())
-    A = list(map(int, input().split()))
-    B = int(input())
-    print(solve(A, B))
+    n = int(input())
+    arr = list(map(int, input().split()))
+    t = int(input())
+    
+    res = set()
+    for i in range(1, n + 1):
+        for r in combinations(arr, i):
+            if sum(r) == t:
+                res.add(tuple(sorted(r)))
+
+    items = sorted(res)
+    
+    if not items:
+        print("Empty")
+    else:
+        for item in items:
+            print(f"({' '.join(map(str, item))})", end='')
+        print()
 
 """
 Input	
