@@ -10,4 +10,4 @@ def rearrange_array(arr):
 N = int(input())
 arr = list(map(int,input().split()))
 result = rearrange_array(arr)
-print(' '.join(map(str, result)))
+print(*result)
