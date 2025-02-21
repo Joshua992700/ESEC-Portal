@@ -1,8 +1,8 @@
 n = int(input())
-kids = [input().strip() for _ in range(n)]
+kids = [input() for _ in range(n)]
 gifts = int(input())
-f = input().strip()
-s = input().strip()
+f = input()
+s = input()
 
 fi, si = kids.index(f), kids.index(s)
 direction = "Clockwise" if (si - fi) % n == 2 else "Anti-clockwise"
