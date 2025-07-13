@@ -1,44 +1,64 @@
-# Input for xi, s, r, t, and n
-xi, s, r, t, n = map(int, input().split())
+def min_time_to_gate(X, S, R, t, N, walkways):
+    segments = []
 
-# Input for the 'walk' list
-walk = [tuple(map(int, input().split())) for _ in range(n)]
+    # Step 1: Add walkway segments
+    for B, E, W in walkways:
+        segments.append((B, E, W))
 
-# Initialize the 'seg' list and the 'last' variable
-seg = []
-last = 0
+    # Step 2: Add non-walkway segments
+    covered = [False] * X
+    for B, E, W in walkways:
+        for i in range(B, E):
+            covered[i] = True
 
-# Loop through the 'walk' list and process each element
-for bi, ei, wi in sorted(walk):
-    if bi > last:
-        seg.append((last, bi, s))
-    seg.append((bi, ei, wi + s))
-    last = ei
+    i = 0
+    while i < X:
+        if not covered[i]:
+            start = i
+            while i < X and not covered[i]:
+                i += 1
+            segments.append((start, i, 0))  # Wi = 0
+        else:
+            i += 1
 
-# If the last value is less than xi, append to 'seg'
-if last < xi:
-    seg.append((last, xi, s))
+    # Step 3: Convert segments to (length, Wi)
+    seg_list = []
+    for B, E, W in segments:
+        seg_list.append((E - B, W))
 
-# Sort the 'seg' list based on the third element (speed)
-seg.sort(key=lambda x: x[2])
+    # Step 4: Sort segments by walkway speed (Wi), ascending
+    seg_list.sort(key=lambda x: x[1])
 
-# Initialize the remaining time (t) and other variables
-remain = t
-time = 0.8
-run_dis = 0
+    # Step 5: Distribute running time greedily
+    remaining_run_time = t
+    total_time = 0.0
 
-# Process the segments in 'seg'
-for st, end, sp in seg:
-    length = end - st
-    if remain > 0:
-        eff = sp + (r - s)
-        run_time = min(remain, length / eff)
-        run_dis += run_time * eff
-        remain -= run_time
-    else:
-        time += length / sp
-        wal_dis = length - run_dis
-        time += wal_dis / sp
+    for length, W in seg_list:
+        run_speed = R + W
+        walk_speed = S + W
 
-# Print the time formatted to 3 decimal places
-print(f"{time:.3f}")
+        run_time_for_seg = length / run_speed
+
+        if remaining_run_time >= run_time_for_seg:
+            # Can run full segment
+            total_time += run_time_for_seg
+            remaining_run_time -= run_time_for_seg
+        else:
+            # Run part of the segment
+            run_distance = remaining_run_time * run_speed
+            walk_distance = length - run_distance
+
+            total_time += remaining_run_time + (walk_distance / walk_speed)
+            remaining_run_time = 0.0
+
+    return round(total_time, 3)
+
+X, S, R, t, N = map(int, input().split())
+walkways = []
+for _ in range(N):
+    B, E, W = map(int, input().split())
+    walkways.append((B, E, W))
+
+# Compute and print result
+result = min_time_to_gate(X, S, R, t, N, walkways)
+print(f"{result:.3f}")
